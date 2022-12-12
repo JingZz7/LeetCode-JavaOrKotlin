@@ -23,37 +23,37 @@ class No31_NextPermutation {
          * */
         var sum = 0
         val len = nums.size
-        for (i in 0 until len - 1) {
+        for (i in 0 until len - 1) {//遍历所有
             if (nums[i] > nums[i + 1]) {
                 sum++
             }
         }
-        if (sum == len - 1) {
+        if (sum == len - 1) {//sum最后等于长度减去1，则为最大排列，直接排序即可
             Arrays.sort(nums)
         } else {
-            var index = 0
-            var num = 0
+            var index = 0 //“提升空间”数字的下标
+            var num = 0 //提升空间数字的值
             var indexNum = 0
-            for (i in len - 1 downTo 1) {
+            for (i in len - 1 downTo 1) { //从后往前遍历
                 if (nums[i] > nums[i - 1]) {
                     index = i - 1
                     num = nums[i - 1]
                     break
                 }
             }
-            Arrays.sort(nums, index, len)
+            Arrays.sort(nums, index, len) //只排序[index,len)的部分
             var indexI = 0
-            for (i in index until len) {
-                if (nums[i] > num) {
-                    indexNum = nums[i]
-                    indexI = i
+            for (i in index until len) { //从前往后遍历
+                if (nums[i] > num) { //找到一个最小的大于“提升空间”的数字
+                    indexNum = nums[i] //最小的大于“提升空间”的数字的值
+                    indexI = i //最小的大于“提升空间”的数字的下标
                     break
                 }
             }
-            for (i in indexI downTo index + 1) {
-                nums[i] = nums[i - 1]
+            for (i in indexI downTo index + 1) { //从后往前遍历
+                nums[i] = nums[i - 1] //将(包括)“提升空间” 到 最小的大于“提升空间”的数字 之前的数，后移一位
             }
-            nums[index] = indexNum
+            nums[index] = indexNum //将“提升空间”数字的位置，让给 最小的大于“提升空间”的数字
         }
     }
 }
